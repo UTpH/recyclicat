@@ -6,11 +6,12 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.autograd import Variable
-
+import errno
+import contextlib
 
 # Training settings
 parser = argparse.ArgumentParser(description='Trash- Recyclica')
-parser.add_argument('--data', type=str, default='../data/classed_data/', metavar='D',
+parser.add_argument('--data', type=str, default='../data/all_data/', metavar='D',
                             help="folder where data is located. train_data.zip and test_data.zip need to be found in the folder")
 parser.add_argument('--csv', type=str, default='../data/labelled_data.csv', metavar='C',
                             help="CSV's location")
@@ -32,18 +33,35 @@ torch.manual_seed(args.seed)
 
 from dataloader import TrashData, ToTensor 
 
+data_used = TrashData(args.data,args.csv,transform=ToTensor())
 
-data_loader = torch.utils.data.DataLoader(
-            datasets.ImageFolder(args.data,transform=transforms.Compose(ToTensor())),
-            batch_size=1, shuffle=False, num_workers=1)
-print(len(data_loader))
+ # for i in range(len(data_used)):
+ #         sample = data_used[i]
+ #         print(i, sample['image'],sample['label'])
+ #         if i == 3:
+ #              break
 
-train_loader,val_loader = torch.utils.data.random_split(data_loader, 
-        (int(0.8*len(data_loader)), len(data_loader)-int(0.8*len(data_loader)))) 
-print(len(train_loader))
+
+train_ , val_ = data_used[:0.8*len(data_used)], data_used[0.8*len(data_used):]
+
+train_loader = torch.utils.data.DataLoader(train_, batch_size =64, shuffle =True,
+            num_workers =1)
+
+val_loader = torch.utils.data.DataLoader(val_, batch_size = 64, shuffle = False,
+               num_workers = 1)
+
+    
+
+
+ 
+
 
 
 """Below this is probably the same thing"""
+from model import Net
+model = Net()
+optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+
 
 def train(epoch):
     model.train()
