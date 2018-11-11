@@ -1,0 +1,70 @@
+<div id="form-container">
+    <form action="/demo" method="POST">
+        <div id="hideDisplay">
+            <label>Upload an image from device: <input type="file" name="fileName" accept="image/*"></label>
+            <p>OR<br></p>
+            <button id="displayCamera" type="button">Upload image from camera</button>
+            <br/>
+            <input type="submit">
+        </div>
+
+        <div id="camera">
+            <button id="capture" type="button">Capture</button>
+            <button id="cancelDisplayCamera" type="button">Cancel</button><br/>
+            <video id="player" controls autoplay></video><br>
+            <canvas id="canvas" width=320 height=240></canvas><br>
+            <input type="submit" id="submitNew" download="recyclicaImage.png">
+        </div>
+    </form>
+</div>
+
+<script>
+    //Content taken from developers.google.com
+    const camera = document.getElementById("camera"); //Camera container with buttons and video player
+    const player = document.getElementById("player"); //Container for camera
+    const canvas = document.getElementById("canvas"); //Displays video
+    
+    const hideDisplay = document.getElementById("hideDisplay"); //Displayed by default; shows the choice to choose existing or new photo
+    const context = canvas.getContext("2d"); //Draws the video to the page
+    
+    const captureButton = document.getElementById("capture"); //Acts as the "capture image" button for the camera
+    const displayCamera = document.getElementById("displayCamera"); //Shows the "Upload image from camera" button
+    const cancelDisplayCamera = document.getElementById("cancelDisplayCamera"); //Cancels adding new image
+
+    const submitNew = document.getElementById("submitNew"); //Handles camera submission
+
+
+    const constraints = {
+        video: true,
+    };
+
+    //Hides the default form, shows the camera form
+    displayCamera.addEventListener("click", () => {
+        camera.style.display = "block";
+        hideDisplay.style.display = "none";
+    });
+
+    //Hides the camera form and shows the default form; clears any pictures taken
+    cancelDisplayCamera.addEventListener("click", () => {
+        camera.style.display = "none";
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        hideDisplay.style.display = "block";
+    });  
+
+    //Takes the picture and displays it on the page for the user
+    captureButton.addEventListener("click", () => {
+
+    // Draw the video frame to the canvas.
+    context.drawImage(player, 0, 0, canvas.width, canvas.height);
+    });
+
+    submitNew.addEventListener("click", () => {
+        const dataURL = canvas.toDataURL().replace("image/png", "image/octet-stream");
+    });
+
+    // Attach the video stream to the video element and autoplay.
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+        player.srcObject = stream;
+    });
+</script>

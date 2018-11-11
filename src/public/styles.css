@@ -1,0 +1,78 @@
+@font-face {
+    font-family: Roboto;
+    src: url(fonts/roboto/Roboto-Regular.ttf);
+}
+
+body {
+    padding-top: 5rem;
+  }
+
+.starter-template {
+padding: 3rem 1.5rem;
+text-align: center;
+}
+
+/*--------- Styles for homeLayout ---------*/
+#home-section {
+    margin-bottom: 50vh;
+    text-align: center;
+}
+
+#home-title {
+    font-size: 4em;
+}
+
+#quote {
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+#quote-author {
+    font-style: normal;
+    font-size: 1em;
+}
+
+/* Styles for homepage buttons */
+#home-buttons {
+    list-style-type: none;
+    margin: auto;
+    width: 70%;
+}
+
+.home-button-item {
+    float: left;
+    margin-right: 2vw;
+}
+
+.home-button-item a {
+    color: black;
+    text-decoration: none;
+    font-size: 3em;
+}
+
+.home-button-item a:hover {
+    transition: 0.5s;
+    color: #988c8c;
+}
+
+/*--------- Styles for demoLayout form ---------*/
+#form-container {
+    text-align: left;
+}
+
+#form-container button {
+    margin-bottom: 3vh;
+}
+
+#form-container input {
+    margin-bottom: 3vh;
+}
+
+#camera {
+    display: none;
+    text-align: center;
+}
+
+#hideDisplay {
+    display: block;
+}
