@@ -20,15 +20,18 @@ class TrashData(Dataset):
 
     def __getitem__(self, idx):
              # print(self.image_fol,str(self.csv_file.loc[idx,'image']) + '.jpg')
-           
-            img_name = os.path.join(self.image_fol,str(self.csv_file.loc[idx,'image']) + '.jpg')     
-            if img_name is not None:
+          # print(idx, type(idx))
+         img_name = os.path.join(self.image_fol,str(self.csv_file.at[idx,'image']) + '.jpg')     
+         try: 
+           #print(str(self.csv_file.loc[idx,'image'].values+ '.jpg')) 
+           if img_name is not None:
                 #print(img_name)
                 image = io.imread(img_name)
                 labels = self.csv_file.loc[idx,'label']
                 sample = {'image': image, 'label':labels}
                 return sample
-        
+         except:
+            pass 
 
 #data_sample = TrashData(image_fol = '../data/all_data/',csv_file= '../data/labelled_data.csv')
 #print(data_sample[1])

@@ -11,9 +11,9 @@ import contextlib
 
 # Training settings
 parser = argparse.ArgumentParser(description='Trash- Recyclica')
-parser.add_argument('--data', type=str, default='../data/all_data/', metavar='D',
+parser.add_argument('--data', type=str, default='../data/numb_data', metavar='D',
                             help="folder where data is located. train_data.zip and test_data.zip need to be found in the folder")
-parser.add_argument('--csv', type=str, default='../data/labelled_data.csv', metavar='C',
+parser.add_argument('--csv', type=str, default='../data/num_labelled_data.csv', metavar='C',
                             help="CSV's location")
 parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                             help='input batch size for training (default: 64)')
@@ -40,10 +40,17 @@ data_used = TrashData(args.data,args.csv,transform=ToTensor())
  #         print(i, sample['image'],sample['label'])
  #         if i == 3:
  #              break
+train_ =[]
+for i in range(int(0.8*len(data_used))):
+    j = data_used[i]
+    train_.append(j)
+val_ =[]
+for k in range( int(0.8*len(data_used)), len(data_used)):
+    l = data_used[k]
+    val_.append(l)
 
-
-train_ , val_ = data_used[:0.8*len(data_used)], data_used[0.8*len(data_used):]
-
+print(len(train_))
+print(len(val_))
 train_loader = torch.utils.data.DataLoader(train_, batch_size =64, shuffle =True,
             num_workers =1)
 
@@ -65,7 +72,8 @@ optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
 def train(epoch):
     model.train()
-    for batch_idx, (data, target) in enumerate(train_loader):
+    for batch_idx, (data, target) in (train_loader):
+        print(batch_idx, data,target)
         data, target = Variable(data), Variable(target)
         optimizer.zero_grad()
         output = model(data)
