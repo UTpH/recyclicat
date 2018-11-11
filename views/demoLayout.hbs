@@ -1,5 +1,11 @@
+{{#if message}}
+    <div id="result-container">
+        <span id="submission-result">{{message}}</span>
+        <br>    
+    </div>
+{{/if}}
 <div id="form-container">
-    <form action="/demo" method="POST">
+    <form action="" method="POST">
         <div id="hideDisplay">
             <label>Upload an image from device: <input type="file" name="fileName" accept="image/*"></label>
             <p>OR<br></p>
@@ -16,6 +22,10 @@
             <input type="submit" id="submitNew" download="recyclicaImage.png">
         </div>
     </form>
+</div>
+
+<div>
+    
 </div>
 
 <script>

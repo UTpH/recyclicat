@@ -37,11 +37,14 @@ text-align: center;
     list-style-type: none;
     margin: auto;
     width: 70%;
+    text-align: center;
 }
 
 .home-button-item {
-    float: left;
-    margin-right: 2vw;
+    display: inline;
+    padding-left: 1.5vh;
+    padding-right: 1.5vh;
+    margin: auto;
 }
 
 .home-button-item a {
@@ -55,6 +58,21 @@ text-align: center;
     color: #988c8c;
 }
 
+/* Motivation graphs */
+#graph-caption {
+    margin-top: 3vh;
+    font-size: 1.5em;
+}
+
+#motivation {
+    text-align: center;
+}
+
+/*Fix mobile screen image sizing*/
+#motivation img {
+    max-width: 100%;
+    height: auto;
+}
 /*--------- Styles for demoLayout form ---------*/
 #form-container {
     text-align: left;
@@ -75,4 +93,14 @@ text-align: center;
 
 #hideDisplay {
     display: block;
+}
+
+#submission-result {
+    font-size: 1.5em;
+}
+
+#result-container {
+    background-color: #35373a;
+    color: white;
+    margin-bottom: 3vh;
 }
