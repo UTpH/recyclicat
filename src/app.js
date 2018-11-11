@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/app', (req, res) => {
-
+    res.render('appLayout');
 });
 
 app.get('/demo', (req, res) => {
@@ -32,13 +32,12 @@ app.post('/demo', (req, res) => {
 
     process.stdout.on('data', (data) => {
         const result = data.toString();
-        if (result === "success") {
+        if (result !== "success") {
             res.render('demoLayout', {message: "Upload failed"});
         } else {
             res.render('demoLayout', {message: "Upload success"});
         }
     });
-    //res.redirect('/');
 });
 
 app.listen(3000);
