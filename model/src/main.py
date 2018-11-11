@@ -10,7 +10,7 @@ from torch.autograd import Variable
 
 # Training settings
 parser = argparse.ArgumentParser(description='Trash- Recyclica')
-parser.add_argument('--data', type=str, default='../data/all-data/', metavar='D',
+parser.add_argument('--data', type=str, default='../data/classed_data/', metavar='D',
                             help="folder where data is located. train_data.zip and test_data.zip need to be found in the folder")
 parser.add_argument('--csv', type=str, default='../data/labelled_data.csv', metavar='C',
                             help="CSV's location")
@@ -34,11 +34,13 @@ from dataloader import TrashData, ToTensor
 
 
 data_loader = torch.utils.data.DataLoader(
-            datasets.ImageFolder(args.data + '/train_images',
-                                         transform=data_transforms),
-                batch_size=args.batch_size, shuffle=True, num_workers=1)
+            datasets.ImageFolder(args.data,transform=transforms.Compose(ToTensor())),
+            batch_size=1, shuffle=False, num_workers=1)
+print(len(data_loader))
 
-
+train_loader,val_loader = torch.utils.data.random_split(data_loader, 
+        (int(0.8*len(data_loader)), len(data_loader)-int(0.8*len(data_loader)))) 
+print(len(train_loader))
 
 
 """Below this is probably the same thing"""

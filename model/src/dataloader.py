@@ -18,10 +18,10 @@ class TrashData(Dataset):
         return len(self.labelled_data)
 
     def __getitem__(self, idx):
-        print(self.image_fol,str(self.csv_file.loc[idx,'image']) + '.jpg')
+       # print(self.image_fol,str(self.csv_file.loc[idx,'image']) + '.jpg')
         img_name = os.path.join(self.image_fol,str(self.csv_file.loc[idx,'image']) + '.jpg')     
         
-        print(img_name)
+        #print(img_name)
         image = io.imread(img_name)
         labels = self.csv_file.loc[idx,'label']
         sample = {'image': image, 'label':labels}
