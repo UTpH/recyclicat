@@ -22,7 +22,7 @@ We took a shot at the problem with first educating people about recycling by hel
 * Node js
 * Handlebars
 * Python
-* pytouch
+* Pytorch
 * Pandas
 * HTML5 & CSS3
 
